@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="night">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>在线音乐播放器</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="library-panel surface">
+      <div class="brand-row">
+        <div class="brand-mark">♪</div>
+        <div>
+          <p class="eyebrow">Music Library</p>
+          <h2>周杰伦歌单</h2>
+        </div>
+      </div>
+
+      <button id="loadBtn" class="btn btn-sm btn-outline w-full">重新加载歌单</button>
+      <p class="hint">歌单来源：<code>playlist_with_covers.json</code></p>
+
+      <div class="now-mini">
+        <img id="miniCover" src="./assets/default-cover.svg" alt="迷你封面">
+        <div class="min-w-0">
+          <div id="miniTitle" class="truncate font-semibold">未播放</div>
+          <small id="miniArtist" class="truncate">请选择歌曲</small>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-tile">
+          <span>曲库</span>
+          <strong id="sideTrackCount">--</strong>
+        </div>
+        <div class="stat-tile">
+          <span>模式</span>
+          <strong id="sideMode">循环</strong>
+        </div>
+      </div>
+    </aside>
+
+    <section class="content-panel surface">
+      <header class="playlist-hero">
+        <img id="playlistCover" src="./assets/default-cover.svg" alt="歌单封面">
+        <div class="hero-copy">
+          <div class="badge badge-primary badge-outline">公开歌单</div>
+          <h1 id="playlistName">我的在线歌单</h1>
+          <p id="playlistMeta">加载中...</p>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <button id="playAllBtn" class="btn btn-primary btn-circle btn-lg" title="播放或暂停">▶</button>
+        <button id="shuffleBtn" class="btn btn-sm btn-ghost">随机</button>
+        <button id="loopBtn" class="btn btn-sm btn-ghost">列表循环：开</button>
+        <span id="status" class="status-text"></span>
+      </section>
+
+      <div class="table-wrap">
+        <table class="table song-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>标题</th>
+              <th>艺人</th>
+              <th>专辑</th>
+              <th>时长</th>
+            </tr>
+          </thead>
+          <tbody id="songList"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="detail-panel surface">
+      <p id="nowTitle" class="eyebrow">未播放</p>
+      <img id="nowCover" src="./assets/default-cover.svg" alt="当前封面">
+      <h2 id="nowSong">请选择歌曲</h2>
+      <p id="nowArtist">-</p>
+      <p id="nowAlbum">-</p>
+    </aside>
+  </main>
+
+  <footer class="player-bar">
+    <div class="track-info">
+      <img id="bottomCover" src="./assets/default-cover.svg" alt="播放封面">
+      <div class="min-w-0">
+        <strong id="bottomTitle" class="truncate">未播放</strong>
+        <small id="bottomArtist" class="truncate">请选择歌曲</small>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="button-row">
+        <button id="prevBtn" class="btn btn-ghost btn-circle" title="上一首">⏮</button>
+        <button id="playBtn" class="btn btn-primary btn-circle" title="播放或暂停">▶</button>
+        <button id="nextBtn" class="btn btn-ghost btn-circle" title="下一首">⏭</button>
+      </div>
+      <div class="progress-row">
+        <span id="currentTime">0:00</span>
+        <input id="progress" class="range range-primary range-xs" type="range" min="0" max="100" value="0">
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <div class="volume">
+      <span>音量</span>
+      <input id="volume" class="range range-primary range-xs" type="range" min="0" max="1" step="0.01" value="0.8">
+    </div>
+  </footer>
+
+  <audio id="audio"></audio>
+  <script src="./app.js"></script>
+</body>
+</html>

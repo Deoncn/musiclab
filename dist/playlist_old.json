@@ -1,0 +1,24 @@
+{
+  "playlist": {
+    "name": "我的在线歌单",
+    "cover": "./assets/default-cover.svg"
+  },
+  "tracks": [
+    {
+      "title": "示例歌曲 1",
+      "artist": "示例艺人",
+      "album": "示例专辑",
+      "duration": 215,
+      "cover": "./assets/default-cover.svg",
+      "url": "./music/Jay Chou - 愛在西元前.mp3"
+    },
+    {
+      "title": "示例歌曲 2",
+      "artist": "另一位艺人",
+      "album": "另一张专辑",
+      "duration": 248,
+      "cover": "./assets/default-cover.svg",
+      "url": "./music/Jay Chou - 安靜.mp3"
+    }
+  ]
+}

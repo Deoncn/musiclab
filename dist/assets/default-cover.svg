@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#222"/>
+  <circle cx="256" cy="256" r="160" fill="#333"/>
+  <circle cx="256" cy="256" r="52" fill="#111"/>
+  <path d="M210 145v185a44 44 0 1 1-26-40V145h26zm26 0h130v44H236v-44z" fill="#1ed760"/>
+  <text x="256" y="455" text-anchor="middle" fill="#ddd" font-family="Arial" font-size="34">Music Player</text>
+</svg>
