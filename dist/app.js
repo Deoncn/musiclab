@@ -3,6 +3,7 @@ const songList = document.querySelector("#songList");
 const statusEl = document.querySelector("#status");
 const searchInput = document.querySelector("#searchInput");
 const playlistCardsEl = document.querySelector("#playlistCards");
+const mobilePlaylistSelect = document.querySelector("#mobilePlaylistSelect");
 
 const PLAYLISTS = [
   {
@@ -158,12 +159,18 @@ async function buildPlaylistCards() {
       loadPlaylist(card.dataset.playlistId);
     });
   });
+
+  mobilePlaylistSelect.innerHTML = cards.map(card => `
+    <option value="${esc(card.id)}">${esc(card.name)} · ${card.count} 首</option>
+  `).join("");
+  mobilePlaylistSelect.value = activePlaylistId;
 }
 
 function updatePlaylistCardsActive() {
   playlistCardsEl.querySelectorAll("[data-playlist-id]").forEach(card => {
     card.classList.toggle("active", card.dataset.playlistId === activePlaylistId);
   });
+  mobilePlaylistSelect.value = activePlaylistId;
 }
 
 async function loadPlaylist(id = activePlaylistId) {
@@ -440,6 +447,10 @@ $("#playAllBtn").addEventListener("click", togglePlay);
 $("#nextBtn").addEventListener("click", nextSong);
 $("#prevBtn").addEventListener("click", prevSong);
 $("#loadBtn").addEventListener("click", () => loadPlaylist(activePlaylistId));
+
+mobilePlaylistSelect.addEventListener("change", (e) => {
+  loadPlaylist(e.target.value);
+});
 
 searchInput.addEventListener("input", (e) => {
   searchQuery = e.target.value;

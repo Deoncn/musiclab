@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>在线音乐播放器</title>
+  <title>给老婆的音乐播放器</title>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="./style.css" />
@@ -56,6 +56,7 @@
 
       <section class="toolbar">
         <button id="playAllBtn" class="btn btn-primary btn-circle btn-lg" title="播放或暂停">▶</button>
+        <select id="mobilePlaylistSelect" class="mobile-playlist-select select select-sm select-bordered" aria-label="切换歌单"></select>
         <button id="loopBtn" class="btn btn-sm btn-ghost">列表循环：开</button>
         <div class="dropdown dropdown-bottom">
           <button id="playModeBtn" tabindex="0" class="btn btn-sm btn-ghost">播放模式：顺序</button>
