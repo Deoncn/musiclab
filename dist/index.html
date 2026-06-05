@@ -12,15 +12,17 @@
   <main class="app-shell">
     <aside class="library-panel surface">
       <div class="brand-row">
-        <div class="brand-mark">♪</div>
+        <img class="brand-avatar" src="https://avatars.githubusercontent.com/u/51418619" alt="播放器图标">
         <div>
-          <p class="eyebrow">Music Library</p>
-          <h2>周杰伦歌单</h2>
+          <p class="eyebrow">给老婆的音乐播放器</p>
+          <h2>歌单</h2>
         </div>
       </div>
 
-      <button id="loadBtn" class="btn btn-sm btn-outline w-full">重新加载歌单</button>
-      <p class="hint">歌单来源：<code>playlist_with_covers.json</code></p>
+      <div id="playlistCards" class="playlist-cards" aria-label="歌单列表"></div>
+
+      <button id="loadBtn" class="btn btn-sm btn-outline w-full">重新加载当前歌单</button>
+      <p class="hint">当前来源：<code id="playlistSource">playlist_with_covers.json</code></p>
 
       <div class="now-mini">
         <img id="miniCover" src="./assets/default-cover.svg" alt="迷你封面">
@@ -54,8 +56,19 @@
 
       <section class="toolbar">
         <button id="playAllBtn" class="btn btn-primary btn-circle btn-lg" title="播放或暂停">▶</button>
-        <button id="shuffleBtn" class="btn btn-sm btn-ghost">随机</button>
         <button id="loopBtn" class="btn btn-sm btn-ghost">列表循环：开</button>
+        <div class="dropdown dropdown-bottom">
+          <button id="playModeBtn" tabindex="0" class="btn btn-sm btn-ghost">播放模式：顺序</button>
+          <ul tabindex="0" class="dropdown-content menu mode-menu rounded-box z-20 w-44 p-2 shadow-xl">
+            <li><button type="button" data-play-mode="normal">顺序播放</button></li>
+            <li><button type="button" data-play-mode="shuffle">随机播放</button></li>
+            <li><button type="button" data-play-mode="single">单曲循环</button></li>
+          </ul>
+        </div>
+        <label class="search-box input input-sm input-bordered">
+          <span>搜索</span>
+          <input id="searchInput" type="search" placeholder="歌曲、艺人或专辑" autocomplete="off">
+        </label>
         <span id="status" class="status-text"></span>
       </section>
 
@@ -88,27 +101,45 @@
     <div class="track-info">
       <img id="bottomCover" src="./assets/default-cover.svg" alt="播放封面">
       <div class="min-w-0">
-        <strong id="bottomTitle" class="truncate">未播放</strong>
+        <div class="bottom-title-row">
+          <strong id="bottomTitle" class="truncate">未播放</strong>
+          <span class="liked-dot" title="已收藏">●</span>
+        </div>
         <small id="bottomArtist" class="truncate">请选择歌曲</small>
       </div>
     </div>
 
     <div class="controls">
       <div class="button-row">
-        <button id="prevBtn" class="btn btn-ghost btn-circle" title="上一首">⏮</button>
-        <button id="playBtn" class="btn btn-primary btn-circle" title="播放或暂停">▶</button>
-        <button id="nextBtn" class="btn btn-ghost btn-circle" title="下一首">⏭</button>
+        <button id="prevBtn" class="player-icon transport" type="button" title="上一首" aria-label="上一首">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3.3 1a.7.7 0 0 1 .7.7v5.15l9.95-5.744a.7.7 0 0 1 1.05.606v12.575a.7.7 0 0 1-1.05.607L4 9.149V14.3a.7.7 0 0 1-.7.7H1.7a.7.7 0 0 1-.7-.7V1.7a.7.7 0 0 1 .7-.7z"></path>
+          </svg>
+        </button>
+        <button id="playBtn" class="player-play" type="button" title="播放或暂停" aria-label="播放">
+          <svg class="play-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288z"></path>
+          </svg>
+        </button>
+        <button id="nextBtn" class="player-icon transport" type="button" title="下一首" aria-label="下一首">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M12.7 1a.7.7 0 0 0-.7.7v5.15L2.05 1.107A.7.7 0 0 0 1 1.712v12.575a.7.7 0 0 0 1.05.607L12 9.149V14.3a.7.7 0 0 0 .7.7h1.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7z"></path>
+          </svg>
+        </button>
       </div>
       <div class="progress-row">
         <span id="currentTime">0:00</span>
-        <input id="progress" class="range range-primary range-xs" type="range" min="0" max="100" value="0">
+        <input id="progress" class="player-range" type="range" min="0" max="100" value="0">
         <span id="duration">0:00</span>
       </div>
     </div>
 
     <div class="volume">
-      <span>音量</span>
-      <input id="volume" class="range range-primary range-xs" type="range" min="0" max="1" step="0.01" value="0.8">
+      <button id="muteBtn" class="volume-button" type="button" title="静音">
+        <svg id="volumeIcon" viewBox="0 0 16 16" aria-hidden="true"></svg>
+      </button>
+      <input id="volume" class="player-range volume-range" type="range" min="0" max="1" step="0.01" value="0.8">
+      <button id="fullscreenBtn" class="player-icon fullscreen-icon" type="button" title="全屏">⛶</button>
     </div>
   </footer>
 
